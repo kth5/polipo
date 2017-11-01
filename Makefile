@@ -1,7 +1,8 @@
-PREFIX = /usr/local
+PREFIX = /usr
+TARGET = $(DESTDIR)
 BINDIR = $(PREFIX)/bin
-MANDIR = $(PREFIX)/man
-INFODIR = $(PREFIX)/info
+MANDIR = $(PREFIX)/share/man
+INFODIR = $(PREFIX)/share/info
 LOCAL_ROOT = /usr/share/polipo/www
 DISK_CACHE_ROOT = /var/cache/polipo
 
@@ -60,7 +61,7 @@ FILE_DEFINES = -DLOCAL_ROOT=\"$(LOCAL_ROOT)/\" \
 
 DEFINES = $(FILE_DEFINES) $(PLATFORM_DEFINES)
 
-CFLAGS = $(MD5INCLUDES) $(CDEBUGFLAGS) $(DEFINES) $(EXTRA_DEFINES)
+override CFLAGS += $(MD5INCLUDES) $(CDEBUGFLAGS) $(DEFINES) $(EXTRA_DEFINES)
 
 SRCS = util.c event.c io.c chunk.c atom.c object.c log.c diskcache.c main.c \
        config.c local.c http.c client.c server.c auth.c tunnel.c \
@@ -99,7 +100,6 @@ install.man: all
 	mkdir -p $(TARGET)$(INFODIR)
 	cp -f polipo.man $(TARGET)$(MANDIR)/man1/polipo.1
 	cp polipo.info $(TARGET)$(INFODIR)/
-	install-info --info-dir=$(TARGET)$(INFODIR) polipo.info
 
 
 polipo.info: polipo.texi

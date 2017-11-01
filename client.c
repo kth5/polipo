@@ -735,7 +735,7 @@ httpClientRequest(HTTPRequestPtr request, AtomPtr url)
         return 1;
     }
 
-    do_log_time(L_INFO, "%s - %s\n", method2str(request->method), url->string);
+    do_log(L_INFO, "%s - %s\n", method2str(request->method), url->string);
 
     connection->reqbegin = i;
 
